@@ -6,5 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserDAO {
 	
 	public int join(UserVO userVO)throws Exception;
+	
+	public UserVO detail(UserVO userVO)throws Exception;
 
 }

@@ -30,5 +30,16 @@ public class UserService {
 		
 		return userDAO.join(userVO);
 	}
+	
+	public UserVO detail(UserVO userVO)throws Exception{
+		UserVO result = userDAO.detail(userVO);
+		if(result != null) {
+			if(userVO.getPassword().equals(result.getPassword())) {
+				return userVO;
+			}
+			result = null;
+		}
+		return result;
+	}
 
 }

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/user/*")
 public class UserController {
@@ -24,4 +26,24 @@ public class UserController {
 		return "redirect:/";
 	}
 
+	
+	@GetMapping("login")
+	public void login()throws Exception{}
+	
+	@PostMapping("login")
+	public String login(UserVO userVO, HttpSession session)throws Exception{
+		
+		userVO =userService.detail(userVO);
+		if(userVO != null) {
+			session.setAttribute("user", userVO);
+		}
+		
+		return "redirect:/";
+	}
+	
+	@GetMapping("logout")
+	public String login(HttpSession session)throws Exception{
+		session.invalidate();
+		return "redirect:/";
+	}
 }

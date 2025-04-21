@@ -12,4 +12,9 @@
   		(#{username}, #{password},#{name} #{phone}, #{email}, #{birth}, #{fileName}, #{oriName})
   	</insert>
   	
+  	<select id="detail" parameterType="UserVO" resultType="UserVO">
+  		SELECT * FROM USER_TBL
+  		WHERE USERNAME=#{username}
+  	</select>
+  	
   </mapper>
