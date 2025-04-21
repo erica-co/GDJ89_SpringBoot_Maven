@@ -11,7 +11,7 @@ import com.winter.app.board.BoardVO;
 public interface QnaDAO extends BoardDAO{
 	
 	
-	public int refUpdate(QnaVO qnaVO)throws Exception;
+	public int refUpdate(BoardVO boardVO)throws Exception;
 	
 	public int test(List<BoardVO> list)throws Exception;
 

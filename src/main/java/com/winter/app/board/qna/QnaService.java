@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.board.BoardFileVO;
@@ -14,10 +15,11 @@ import com.winter.app.files.FileManager;
 import com.winter.app.home.util.Pager;
 
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class QnaService implements BoardService{
 	
 	@Autowired
-	private QnaDAO noticeDAO;
+	private QnaDAO qnaDAO;
 	
 	@Autowired
 	private FileManager fileManager;
@@ -31,23 +33,23 @@ public class QnaService implements BoardService{
 	@Override
 	public List<BoardVO> getList(Pager pager) throws Exception {
 		// TODO Auto-generated method stub
-		pager.make(noticeDAO.getTotalCount(pager));
+		pager.make(qnaDAO.getTotalCount(pager));
 		pager.makeNum();
-		List<BoardVO> ar = noticeDAO.getList(pager); 
+		List<BoardVO> ar = qnaDAO.getList(pager); 
 		return ar;
 	}
 
 	@Override
 	public BoardVO getDetail(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
-		return noticeDAO.getDetail(boardVO);
+		return qnaDAO.getDetail(boardVO);
 	}
 
 	@Override
 	public int add(BoardVO boardVO, MultipartFile [] multipartFiles) throws Exception {
 		// TODO Auto-generated method stub
-		int result = noticeDAO.add(boardVO);
-		
+		int result = qnaDAO.add(boardVO);
+		result = qnaDAO.refUpdate(boardVO);
 		
 		//파일을 HDD에 저장
 		if(multipartFiles != null) {
@@ -63,7 +65,7 @@ public class QnaService implements BoardService{
 				boardFileVO.setOldName(f.getOriginalFilename());
 				boardFileVO.setBoardNum(boardVO.getBoardNum());
 				
-				result = noticeDAO.addFile(boardFileVO);
+				result = qnaDAO.addFile(boardFileVO);
 			}
 		}
 		
@@ -75,7 +77,7 @@ public class QnaService implements BoardService{
 	@Override
 	public BoardFileVO getFileDetail(BoardFileVO boardFileVO) throws Exception {
 		// TODO Auto-generated method stub
-		return noticeDAO.getFileDetail(boardFileVO);
+		return qnaDAO.getFileDetail(boardFileVO);
 	}
 	
 	

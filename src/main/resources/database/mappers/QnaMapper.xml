@@ -74,7 +74,7 @@
   		(#{boardTitle}, #{boardContents}, NOW(), 0, #{userName},#{boardNum}, 0, 0)
   	</insert>
   	
-  	<update id="refUpdate" parameterType="QnaVO">
+  	<update id="refUpdate" parameterType="BoardVO">
   		UPDATE QNA_TBL SET BOARD_REF=#{boardNum} WHERE BOARD_NUM=#{boardNum}
   	</update>
   	

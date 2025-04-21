@@ -5,19 +5,23 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
+@Transactional//(rollbackFor = Exception.class)
 class QnaDAOTest {
 	
 	@Autowired
 	private QnaDAO qnaDAO;
 
 	@Test
+	@Rollback(true)
 	void testAdd() throws Exception {
 		QnaVO qnaVO = new QnaVO();
-		qnaVO.setUserName("user1");
-		qnaVO.setBoardTitle("title1");
-		qnaVO.setBoardContents("contents1");
+		qnaVO.setUserName("user2");
+		qnaVO.setBoardTitle("title2");
+		qnaVO.setBoardContents("contents2");
 		qnaDAO.add(qnaVO);
 		qnaDAO.refUpdate(qnaVO);
 	}

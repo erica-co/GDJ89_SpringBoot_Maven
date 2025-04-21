@@ -2,6 +2,7 @@ package com.winter.app.board;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.home.util.Pager;
