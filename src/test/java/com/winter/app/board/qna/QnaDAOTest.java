@@ -19,9 +19,9 @@ class QnaDAOTest {
 	@Rollback(true)
 	void testAdd() throws Exception {
 		QnaVO qnaVO = new QnaVO();
-		qnaVO.setUserName("user2");
-		qnaVO.setBoardTitle("title2");
-		qnaVO.setBoardContents("contents2");
+		qnaVO.setUserName("user3");
+		qnaVO.setBoardTitle("title3");
+		qnaVO.setBoardContents("contents3");
 		qnaDAO.add(qnaVO);
 		qnaDAO.refUpdate(qnaVO);
 	}
