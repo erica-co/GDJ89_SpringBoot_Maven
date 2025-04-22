@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +18,9 @@
 				<c:import url="/WEB-INF/views/templates/topbar.jsp"></c:import>
 				<div class="container-fluid">
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">${kind}</h1>
+					<h1 class="h3 mb-2 text-gray-800">
+						<spring:message code="board.notice.title"></spring:message>
+					</h1>
 
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">

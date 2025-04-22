@@ -199,4 +199,9 @@
 
 	</ul>
 	</c:if>
+	
+	<ul class="navbar-nav ml-auto">
+		<li class="nav-item mx-1"><a href="/?lang=ko">KO</a></li>
+		<li class="nav-item mx-1"><a href="/?lang=en">EN</a></li>
+	</ul>
 </nav>
