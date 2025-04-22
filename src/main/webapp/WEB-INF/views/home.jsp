@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,9 +18,19 @@
 			<div id="content">
 				<c:import url="./templates/topbar.jsp"></c:import>
 				<div class="container-fluid">
-					
-					
+					<p>
+					<spring:message code="welcome" var="m"></spring:message>
+					</p>
+					<p>
+					<spring:message code="hello"></spring:message>
+					</p>
+					<p>
+					<spring:message code="hi" text="안녕하세요"></spring:message>
+					</p>
 					<!-- contents 내용 -->
+					<h3>${m}</h3>
+					
+					<spring:message code="welcome.login" arguments="${user.username}-${user.name}" argumentSeparator="-"></spring:message>
 					
 					
 				</div>
