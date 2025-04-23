@@ -9,10 +9,10 @@
   		INSERT INTO USER_TBL
   		(USERNAME, PASSWORD,NAME, PHONE, EMAIL, BIRTH, FILE_NAME, ORI_NAME)
   		VALUES
-  		(#{username}, #{password},#{name} #{phone}, #{email}, #{birth}, #{fileName}, #{oriName})
+  		(#{username}, #{password},#{name}, #{phone}, #{email}, #{birth}, #{fileName}, #{oriName})
   	</insert>
   	
-  	<select id="detail" parameterType="UserVO" resultMap="UserVO">
+  	<select id="detail" parameterType="UserVO" resultMap="detailResult">
   		SELECT * 
 		FROM USER_TBL U
 			INNER JOIN 

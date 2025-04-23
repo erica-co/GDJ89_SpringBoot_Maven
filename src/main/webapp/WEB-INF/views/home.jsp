@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
     
 <!DOCTYPE html>
 <html>
@@ -18,6 +19,14 @@
 			<div id="content">
 				<c:import url="./templates/topbar.jsp"></c:import>
 				<div class="container-fluid">
+					<sec:authorize access="hasRole('ADMIN')">
+						<h3>Admin View</h3>
+					</sec:authorize>
+					
+					<sec:authorize access="isAuthenticated">
+						<h3>USERNAME : <sec:authentication property="principal.name"/></h3> 
+					</sec:authorize>
+				
 					<p>
 					<spring:message code="welcome" var="m"></spring:message>
 					</p>

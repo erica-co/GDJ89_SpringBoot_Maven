@@ -1,6 +1,10 @@
 package com.winter.app.user;
 
+import java.util.Enumeration;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -24,10 +28,26 @@ public class UserController {
 	private UserService userService;
 	
 	@GetMapping("mypage")
-	public void mypage(@ModelAttribute UserVO userVO)throws Exception{}
+	public void mypage() {}
 	
-	@PostMapping("mypage")
-	public void mypage(@Validated(UpdateGroup.class) UserVO userVO, BindingResult bindingResult)throws Exception{}
+	@GetMapping("update")
+	public void update(@ModelAttribute UserVO userVO, HttpSession session)throws Exception{
+		Enumeration<String> e = session.getAttributeNames();
+		while(e.hasMoreElements()) {
+			System.out.println(e.nextElement());
+		}
+		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
+		System.out.println(obj.getClass());
+		
+		SecurityContextImpl impl = (SecurityContextImpl)obj;
+		
+		Authentication authentication= impl.getAuthentication();
+		log.info("authentication: {}", authentication);
+		
+	}
+	
+	@PostMapping("update")
+	public void update(@Validated(UpdateGroup.class) UserVO userVO, BindingResult bindingResult)throws Exception{}
 	
 	@GetMapping("join")
 	public void join(@ModelAttribute UserVO userVO)throws Exception{}
@@ -42,7 +62,7 @@ public class UserController {
 			return "user/join";
 		}
 		
-		//userService.join(userVO, avatar);
+		userService.join(userVO, avatar);
 		return "redirect:/";
 	}
 
@@ -50,20 +70,19 @@ public class UserController {
 	@GetMapping("login")
 	public void login()throws Exception{}
 	
-	@PostMapping("login")
-	public String login(UserVO userVO, HttpSession session)throws Exception{
-		
-		userVO =userService.detail(userVO);
-		if(userVO != null) {
-			session.setAttribute("user", userVO);
-		}
-		
-		return "redirect:/";
-	}
+	/* filter에서 걸러져서 앞으로는 필요없음
+	 * @PostMapping("login") public String login(UserVO userVO, HttpSession
+	 * session)throws Exception{
+	 * 
+	 * userVO =userService.detail(userVO); if(userVO != null) {
+	 * session.setAttribute("user", userVO); }
+	 * 
+	 * return "redirect:/"; }
+	 */
 	
-	@GetMapping("logout")
-	public String login(HttpSession session)throws Exception{
-		session.invalidate();
-		return "redirect:/";
-	}
+	/* securityConfig에서 설정해놔서 controller 필요없음
+	 * @GetMapping("logout") public String login(HttpSession session)throws
+	 * Exception{ session.invalidate(); return "redirect:/"; }
+	 */
+	
 }

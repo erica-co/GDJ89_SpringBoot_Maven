@@ -27,12 +27,12 @@
   	</sql>
   
   	<select id="getTotalCount" resultType="Long" parameterType="Pager">
-  		SELECT COUNT(BOARD_NUM) FROM NOTICE_TBL
+  		SELECT COUNT(BOARD_NUM) FROM NOTICE
   		<include refid="search"></include>
   	</select>
   
   	<select id="getList" resultType="NoticeVO" parameterType="Pager">
-  		SELECT * FROM NOTICE_TBL
+  		SELECT * FROM NOTICE
   		
   		<include refid="search"></include>
   		
@@ -43,9 +43,9 @@
   	
   	<select id="getDetail" parameterType="BoardVO" resultMap="detailResult">
   		SELECT * 
-  		FROM NOTICE_TBL N
+  		FROM NOTICE N
   			 LEFT OUTER JOIN
-  			 NOTICE_FILES_TBL NF
+  			 NOTICE_FILES NF
   			 USING (BOARD_NUM)
   		WHERE BOARD_NUM=#{boardNum}
   	</select>
@@ -67,21 +67,21 @@
   	</resultMap>
   	
   	<insert id="add" parameterType="BoardVO" useGeneratedKeys="true" keyProperty="boardNum">
-  		INSERT INTO NOTICE_TBL 
+  		INSERT INTO NOTICE 
   		(BOARD_TITLE, BOARD_CONTENTS, BOARD_DATE, BOARD_HIT, USER_NAME)
   		VALUES
   		(#{boardTitle}, #{boardContents}, NOW(), 0, #{userName})
   	</insert>
   	
   	<insert id="addFile" parameterType="BoardFileVO">
-  		INSERT INTO NOTICE_FILES_TBL
+  		INSERT INTO NOTICE_FILES
   		(FILE_NAME, OLD_NAME, BOARD_NUM)
   		VALUES
   		(#{fileName}, #{oldName}, #{boardNum})
   	</insert>
   	
   	<select id="getFileDetail" parameterType="BoardFileVO" resultType="BoardFileVO">
-  		SELECT * FROM NOTICE_FILES_TBL WHERE FILE_NUM=#{fileNum}
+  		SELECT * FROM NOTICE_FILES WHERE FILE_NUM=#{fileNum}
   	</select>
   	
   	
@@ -89,7 +89,7 @@
   		<!-- 다중 insert -->
   		
   		INSERT 
-  		INTO NOTICE_TBL 
+  		INTO NOTICE 
   		(BOARD_TITLE, BOARD_CONTENTS, BOARD_DATE, BOARD_HIT, USER_NAME)
   		VALUES 
   		<foreach collection="list" item="item" open="" separator="," close="">
