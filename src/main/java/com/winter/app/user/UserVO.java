@@ -1,6 +1,7 @@
 package com.winter.app.user;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.hibernate.validator.constraints.Range;
 
@@ -39,5 +40,7 @@ public class UserVO {
 	private Date birth;
 	private String fileName;
 	private String oriName;
+	
+	private List<RoleVO> list;
 
 }

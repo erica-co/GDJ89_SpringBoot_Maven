@@ -13,8 +13,32 @@
   	</insert>
   	
   	<select id="detail" parameterType="UserVO" resultType="UserVO">
-  		SELECT * FROM USER_TBL
-  		WHERE USERNAME=#{username}
+		SELECT *
+		FROM USER_TBL U
+			 INNER JOIN
+			 MEMBER_ROLE_TBL MR
+			 USING (USERNAME)
+			 INNER JOIN
+			 ROLE_TBL R
+			 USING (ROLE_NUM)
+		WHERE USERNAME=#{username}
+  
   	</select>
+  	
+  	<resultMap type="UserVO" id="detailResult">
+  		<id column="USERNAME" property="username"/>
+  		<result column="PASSWORD" property="password"/>
+  		<result column="NAME" property="name"/>
+  		<result column="PHONE" property="phone"/>
+  		<result column="EMAIL" property="email"/>
+  		<result column="BIRTH" property="birth"/>
+  		<result column="FILE_NAME" property="fileName"/>
+  		<result column="ORI_NAME" property="oriName"/>
+  		<collection property="list" javaType="java.util.List" ofType="RoleVO">
+  			<result column="ROLE_NAME" property="roleName"/>
+  		</collection>
+  	
+  	</resultMap>
+  	
   	
   </mapper>
