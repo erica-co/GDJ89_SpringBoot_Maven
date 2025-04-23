@@ -12,17 +12,16 @@
   		(#{username}, #{password},#{name} #{phone}, #{email}, #{birth}, #{fileName}, #{oriName})
   	</insert>
   	
-  	<select id="detail" parameterType="UserVO" resultMap="detailResult">
-		SELECT *
+  	<select id="detail" parameterType="UserVO" resultMap="UserVO">
+  		SELECT * 
 		FROM USER_TBL U
-			 INNER JOIN
-			 MEMBER_ROLE_TBL MR
-			 USING (USERNAME)
-			 INNER JOIN
-			 ROLE_TBL R
-			 USING (ROLE_NUM)
-		WHERE USERNAME=#{username}
-  
+			INNER JOIN 
+			MEMBER_ROLE_TBL MR
+			USING (USERNAME) 
+			INNER JOIN
+			ROLE_TBL R
+			USING (ROLE_NUM)
+			WHERE USERNAME=#{username}
   	</select>
   	
   	<resultMap type="UserVO" id="detailResult">
@@ -39,6 +38,5 @@
   		</collection>
   	
   	</resultMap>
-  	
   	
   </mapper>
