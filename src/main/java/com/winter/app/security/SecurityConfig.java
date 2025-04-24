@@ -1,5 +1,6 @@
 package com.winter.app.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,9 +8,18 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.winter.app.user.UserService;
+
 @Configuration
 @EnableWebSecurity//(debug=true)
 public class SecurityConfig {
+	
+	@Autowired
+	private SecurityLoginSuccessHandler loginSuccessHandler;
+	@Autowired
+	private SecurityLoginFailHandler loginFailHandler;
+	@Autowired
+	private UserService userService;
 	
 	//정적자원들을 security에서 제외
 	@Bean
@@ -53,8 +63,11 @@ public class SecurityConfig {
 						.loginPage("/user/login")/*우리가 만든 로그인창으로 가겠다*/
 							//.usernameParameter("id")
 							//.passwordParameter("pw")
-						.defaultSuccessUrl("/")/*로그인 성공했을 때 가게될 다음 경로*/
-						.failureForwardUrl("/user/login")/*로그인 실패했을 때*/
+						//.defaultSuccessUrl("/")/*로그인 성공했을 때 가게될 다음 경로*/
+						.successHandler(loginSuccessHandler)
+						
+						//.failureForwardUrl("/user/login")/*로그인 실패했을 때*/
+						.failureHandler(loginFailHandler)
 						.permitAll()
 						;
 					})
@@ -69,7 +82,30 @@ public class SecurityConfig {
 						;
 					})
 					
+					.rememberMe(rememberme->{
+						rememberme
+						.rememberMeParameter("remember-me")
+						.tokenValiditySeconds(60)
+						.key("rememberkey")
+						.userDetailsService(userService)
+						.authenticationSuccessHandler(loginSuccessHandler)
+						.useSecureCookie(false)
+						;
+					})
+					
+					//동시접속 방지
+					.sessionManagement(s->{
+						s
+						.sessionFixation().none()//세션보호를 하지않겠다
+						//.newSession()//.changeSessionId()
+						.invalidSessionUrl("/")
+						.maximumSessions(1)
+						.maxSessionsPreventsLogin(true)//false:이전사용자 자동로그아웃
+						.expiredUrl("/")
+						;
+					})
 					;
+					
 					
 					
 					

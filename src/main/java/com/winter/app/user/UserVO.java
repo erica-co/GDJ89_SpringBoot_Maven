@@ -46,6 +46,11 @@ public class UserVO implements UserDetails {
 	private String fileName;
 	private String oriName;
 	
+	private boolean accountNonExpired;
+	private boolean accountNonLocked;
+	private boolean credentialsNonExpired;
+	private boolean enabled;
+	
 	private List<RoleVO> list;
 
 	@Override
@@ -60,30 +65,32 @@ public class UserVO implements UserDetails {
 			
 		return ar;
 	}
+	
+	//아이디는 맞고 비번이 틀린 경우
+	//BadCredentialsException: 자격 증명에 실패하였습니다.
 
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return UserDetails.super.isAccountNonExpired();
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return UserDetails.super.isAccountNonLocked();
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return UserDetails.super.isCredentialsNonExpired();
-	}
-
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+	/*
+	 * @Override 
+	 * public boolean isAccountNonExpired() 
+	 * { // TODO Auto-generated method stub
+	 * 
+	 * //false-> return true; }
+	 * 
+	 * @Override 
+	 * public boolean isAccountNonLocked() { // TODO Auto-generated method
+	 * stub
+	 * 
+	 * //false-> LockedException:사용자 계정이 잠겨있습니다 return true; }
+	 * 
+	 * @Override public boolean isCredentialsNonExpired() { // TODO Auto-generated
+	 * method stub
+	 * 
+	 * //false-> CredentialsExpiredException : 자격 증명 유효 기간이 만료되었습니다 return true; }
+	 * 
+	 * @Override public boolean isEnabled() { // TODO Auto-generated method stub
+	 * 
+	 * //false-> DisabledException:유효하지 않은 사용자입니다. return true; }
+	 */
 	
 	
 	

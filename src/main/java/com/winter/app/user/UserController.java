@@ -4,6 +4,7 @@ import java.util.Enumeration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -68,7 +69,17 @@ public class UserController {
 
 	
 	@GetMapping("login")
-	public void login()throws Exception{}
+	public String login(@AuthenticationPrincipal UserVO userVO)throws Exception{
+		
+		/* log.info("Login : ", userVO); */
+		if(userVO != null) {
+			return "redirect:/";
+		}
+		return "user/login";
+	}
+	
+	
+	
 	
 	/* filter에서 걸러져서 앞으로는 필요없음
 	 * @PostMapping("login") public String login(UserVO userVO, HttpSession

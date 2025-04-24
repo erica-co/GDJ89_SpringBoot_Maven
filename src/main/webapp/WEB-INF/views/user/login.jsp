@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,9 @@
 			                    <div class="col-lg-7">
 			                        <div class="p-5">
 			                            <div class="text-center">
-			                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+			                                <h1 class="h4 text-gray-900 mb-4">~ Login ~</h1>
+			                                <h3><spring:message code="${param.message}" text=""></spring:message></h3>
+			                                <%-- <h3><spring:message code="${code}" text=""></spring:message></h3> forward방식--%>
 			                            </div>
 			                            <form class="user" method="post" enctype="multipart/form-data">
 			                                <div class="form-group">
@@ -40,7 +43,7 @@
 			                                </div>
 			                                <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                <input type="checkbox" name="remember-me" class="custom-control-input" id="customCheck">
                                                 <label class="custom-control-label" for="customCheck">
                                                 Remember Me
                                                 </label>

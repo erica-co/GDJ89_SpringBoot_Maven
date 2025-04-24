@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.winter.app.board.BoardFileVO;
 import com.winter.app.board.BoardVO;
 import com.winter.app.home.util.Pager;
+import com.winter.app.user.UserVO;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
@@ -63,7 +65,9 @@ public class NoticeController {
 	}
 	
 	@PostMapping("add")
-	public String add(NoticeVO noticeVO,@RequestParam(name = "attaches") MultipartFile[] attaches)throws Exception{
+	public String add(NoticeVO noticeVO,@RequestParam(name = "attaches") MultipartFile[] attaches, @AuthenticationPrincipal UserVO userVO)throws Exception{
+		noticeVO.setUserName(name); //보안 강화
+		
 		int result = noticeService.add(noticeVO, attaches);
 		
 	

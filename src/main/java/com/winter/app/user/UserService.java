@@ -38,9 +38,11 @@ public class UserService implements UserDetailsService{
 	//파라미터 이름을 username으로 하기
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserVO userVO = new UserVO();
+		//2. System.out.println("name : "+username);
 		userVO.setUsername(username);
 		try {
 			userVO = userDAO.detail(userVO);
+			//1. System.out.println(userVO);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

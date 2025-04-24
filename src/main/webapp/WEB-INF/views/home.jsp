@@ -24,7 +24,7 @@
 					</sec:authorize>
 					
 					<sec:authorize access="isAuthenticated">
-						<h3>USERNAME : <sec:authentication property="principal.name"/></h3> 
+						<h3>USERNAME : <sec:authentication property="principal" var="user"/></h3> 
 					</sec:authorize>
 				
 					<p>
@@ -40,6 +40,7 @@
 					<h3>${m}</h3>
 					
 					<spring:message code="welcome.login" arguments="${user.username}-${user.name}" argumentSeparator="-"></spring:message>
+					
 					
 					
 				</div>
