@@ -31,7 +31,7 @@
 					<spring:message code="welcome" var="m"></spring:message>
 					</p>
 					<p>
-					<spring:message code="hello"></spring:message>
+					<!--<spring:message code="hello"></spring:message>-->
 					</p>
 					<p>
 					<spring:message code="hi" text="안녕하세요"></spring:message>
