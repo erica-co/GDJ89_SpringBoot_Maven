@@ -55,7 +55,7 @@ public class UserSocialService extends DefaultOAuth2UserService {
 		userVO.setUsername(attr.get("nickname").toString());
 		userVO.setFileName(attr.get("thumbnail_image").toString());
 		
-		userVO.setAccessToken(userRequest.getAccessToken().toString());
+		userVO.setAccessToken(userRequest.getAccessToken().getTokenValue());
 		
 		userVO.setSns(userRequest.getClientRegistration().getRegistrationId());
 		//권한

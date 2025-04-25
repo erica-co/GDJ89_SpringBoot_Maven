@@ -25,6 +25,8 @@ public class SecurityConfig {
 	private UserSocialService userSocialService;
 	@Autowired
 	private SecurityLogoutHandler securityLogoutHandler;
+	@Autowired
+	private SecurityLogoutSuccessHandler logoutSuccessHandler;
 	
 	//정적자원들을 security에서 제외
 	@Bean
@@ -83,7 +85,7 @@ public class SecurityConfig {
 						.logoutUrl("/user/logout")
 						//.logoutSuccessUrl("/")
 						.addLogoutHandler(securityLogoutHandler) /*실행순서 1번*/
-						//.logoutSuccessHandler(null)/*addLogoutHandler가 성공하면 실행됨 2번*/
+						//.logoutSuccessHandler(logoutSuccessHandler)/*addLogoutHandler가 성공하면 실행됨 2번*/
 						.invalidateHttpSession(true) /*session 소멸*/
 						.permitAll()
 						;
