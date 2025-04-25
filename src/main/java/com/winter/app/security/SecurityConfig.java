@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.winter.app.user.UserService;
+import com.winter.app.user.UserSocialService;
 
 @Configuration
 @EnableWebSecurity//(debug=true)
@@ -20,6 +21,10 @@ public class SecurityConfig {
 	private SecurityLoginFailHandler loginFailHandler;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private UserSocialService userSocialService;
+	@Autowired
+	private SecurityLogoutHandler securityLogoutHandler;
 	
 	//정적자원들을 security에서 제외
 	@Bean
@@ -76,7 +81,9 @@ public class SecurityConfig {
 					.logout(logout->{
 						logout
 						.logoutUrl("/user/logout")
-						.logoutSuccessUrl("/")
+						//.logoutSuccessUrl("/")
+						.addLogoutHandler(securityLogoutHandler) /*실행순서 1번*/
+						//.logoutSuccessHandler(null)/*addLogoutHandler가 성공하면 실행됨 2번*/
 						.invalidateHttpSession(true) /*session 소멸*/
 						.permitAll()
 						;
@@ -104,6 +111,21 @@ public class SecurityConfig {
 						.expiredUrl("/")
 						;
 					})
+		
+		  .oauth2Login(oauth2Login->{ 
+			  oauth2Login 
+			  .userInfoEndpoint(user->{
+		      user.userService(userSocialService); })
+			  ; 
+			  })
+		 
+					
+					
+					
+					
+					
+					
+					
 					;
 					
 					

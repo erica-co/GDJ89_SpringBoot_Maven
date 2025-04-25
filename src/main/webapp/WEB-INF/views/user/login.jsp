@@ -56,8 +56,9 @@
 			                                    Login
 			                                </button>
 			                                <hr>
-			                                <a href="index.html" class="btn btn-google btn-user btn-block">
-			                                    <i class="fab fa-google fa-fw"></i> Register with Google
+			                                <!-- 우리서버에서 카카오서버로 이동하는 href 경로 -->
+			                                <a href="/oauth2/authorization/kakao" class="btn btn-user btn-block">
+			                                    <img scr=""> Register with Kakao
 			                                </a>
 			                                <a href="index.html" class="btn btn-facebook btn-user btn-block">
 			                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook

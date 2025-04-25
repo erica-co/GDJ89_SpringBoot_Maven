@@ -25,6 +25,12 @@
 					
 					<sec:authorize access="isAuthenticated">
 						<h3>USERNAME : <sec:authentication property="principal" var="user"/></h3> 
+						<c:if test="${not empty user.sns}">
+							<img alt="" src="${user.fileName}">
+						</c:if>
+						<c:if test="${empty user.sns}">
+							<img alt="" src="/files/user/${user.fileName}">
+						</c:if>
 					</sec:authorize>
 				
 					<p>
