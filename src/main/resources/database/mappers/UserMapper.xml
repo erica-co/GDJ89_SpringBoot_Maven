@@ -5,6 +5,10 @@
   
   <mapper namespace="com.winter.app.user.UserDAO">
   
+  	<update id="statusChange" parameterType="UserVO">
+  		UPDATE USER_TBL SET STATUS=#{status} WHERE USERNAME=#{username}
+  	</update>
+  
   	<insert id="join" parameterType="UserVO">
   		INSERT INTO USER_TBL
   		(USERNAME, PASSWORD,NAME, PHONE, EMAIL, BIRTH, FILE_NAME, ORI_NAME)

@@ -58,11 +58,11 @@
 			                                <hr>
 			                                <!-- 우리서버에서 카카오서버로 이동하는 href 경로 -->
 			                                <a href="/oauth2/authorization/kakao" class="btn btn-user btn-block">
-			                                    <img scr=""> Register with Kakao
+			                                    <img src="/images/kakao_login.png">
 			                                </a>
-			                                <a href="index.html" class="btn btn-facebook btn-user btn-block">
+			                                <!-- <a href="index.html" class="btn btn-facebook btn-user btn-block">
 			                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-			                                </a>
+			                                </a> -->
 			                            </form>
 			                            <hr>
 			                            <div class="text-center">

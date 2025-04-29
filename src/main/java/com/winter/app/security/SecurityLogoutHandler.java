@@ -3,6 +3,7 @@ package com.winter.app.security;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -10,7 +11,9 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.winter.app.user.UserDAO;
 import com.winter.app.user.UserVO;
+import com.winter.app.websocket.LoginUsers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -27,10 +30,24 @@ public class SecurityLogoutHandler implements LogoutHandler{
 		private String restKey;
 		@Value("${spring.security.oauth2.client.registration.kakao.redirect-uri}")
 		private String redirect;
+		
+		@Autowired
+		private UserDAO userDAO;
 	
 		@Override
 		public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
 			log.info("Auth : {}", authentication);
+			
+			UserVO userVO2 = (UserVO)authentication.getPrincipal();
+			userVO2.setStatus(false);
+			try {
+				userDAO.statusChange(userVO2);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			LoginUsers.USERNAMES.remove(authentication.getName());
 			
 			//social로그인일 경우 logout 요청 진행
 			//authentication(참조변수)

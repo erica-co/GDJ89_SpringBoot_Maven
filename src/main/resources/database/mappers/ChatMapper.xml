@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.winter.app.websocket.ChatDAO">
+  
+  	<select id="room" parameterType="MessageVO" resultType="MessageVO">
+  		SELECT * FROM CHAT_TBL
+  		WHERE 
+  			SENDER=#{sender} AND RECEIVER=#{receiver}
+			OR
+			SENDER=#{receiver} AND RECEIVER=#{sender}
+		ORDER BY CHAT_TIME ASC 
+			  		
+  	</select>
+  
+  	<select id="getList" resultType="UserVO">
+  		SELECT USERNAME, NAME, FILE_NAME, STATUS FROM USER_TBL
+  	</select>
+  	
+  	<insert id="addChat" parameterType="MessageVO">
+  		INSERT INTO CHAT_TBL
+  		VALUES (NULL, #{roomNum}, #{sender}, #{receiver}, #{body}, now())
+  	</insert>
+  	
+  	<insert id="test" parameterType="java.util.List">
+  		INSERT INTO CHAT_TBL
+  		(CHAT_NUM, ROOM_NUM, SENDER, RECEIVER, BODY, CHAT_TIME)
+  		VALUES
+  		<foreach collection="list" item="item" open="" separator="," close="">
+  		(null,#{item.roomNum},#{item.sender}, #{item.receiver}, #{item.body}, NOW())
+  		</foreach>
+  	</insert>
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  </mapper>

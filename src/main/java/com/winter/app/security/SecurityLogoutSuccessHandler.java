@@ -4,13 +4,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.winter.app.user.UserDAO;
 import com.winter.app.user.UserVO;
+import com.winter.app.websocket.LoginUsers;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,10 +32,13 @@ public class SecurityLogoutSuccessHandler implements LogoutSuccessHandler {
 	@Value("${spring.security.oauth2.client.registration.kakao.redirect-uri}")
 	private String redirect;
 	
+	
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
+		
+		
 		
 	}
 	

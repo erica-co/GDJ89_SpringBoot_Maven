@@ -48,6 +48,8 @@ public class UserVO implements UserDetails, OAuth2User {
 	private String fileName;
 	private String oriName;
 	
+	private boolean status;
+	
 	private boolean accountNonExpired;
 	private boolean accountNonLocked;
 	private boolean credentialsNonExpired;
