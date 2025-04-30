@@ -71,7 +71,6 @@
 	<!-- End wrapper -->
 
 	
-	<c:import url="/WEB-INF/views/templates/footer.jsp"></c:import>
 	<!-- chat Modal -->
 	<sec:authentication property="name" var="username"/>
 	<div class="modal" tabindex="-1" id="chat" data-sender-name="${username}">
@@ -104,7 +103,7 @@
 	
 	
 	
-	<script src="/js/chat/chat.js"></script>
 
+	<c:import url="/WEB-INF/views/templates/footer.jsp"></c:import>
 </body>
 </html>

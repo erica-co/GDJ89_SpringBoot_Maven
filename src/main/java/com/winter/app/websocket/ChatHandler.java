@@ -10,6 +10,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -67,20 +68,35 @@ public class ChatHandler implements WebSocketHandler{
 		messageVO.setSender(session.getPrincipal().getName());
 		log.info("sender : {}", messageVO.getSender());
 		
+		if(messageVO.getStatus().equals("3")) {
+			
+			WebSocketMessage<?> webSocketMessage = new TextMessage(objectMapper.writeValueAsString(messageVO));
+			try {
+				//DB에 Insert 코드 나중에 작성 하세요.....
+				chatDAO.addChat(messageVO);
+				users.get(messageVO.getReceiver()).sendMessage(webSocketMessage);
+			
+			
+			
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+		
+			return;
+		}
+		
 		//1:1 통신 시 DB에서 room정보 조회
 		List<MessageVO> rooms = chatDAO.room(messageVO);
 		
 		messageVO.setRoomNum(rooms.get(0).getRoomNum());//messageVO에 roomNum을 넣자
 		
-		if(!messages.containsKey(messageVO.getRoomNum())) {
-			
-			List<MessageVO> list = new ArrayList<>();
-			list.add(messageVO);
-			messages.put(messageVO.getRoomNum(), list);
-		}else {
-			//list 가 있을 경우
-			messages.get(messageVO.getRoomNum()).add(messageVO);
-		}
+		/*
+		 * if(!messages.containsKey(messageVO.getRoomNum())) {
+		 * 
+		 * List<MessageVO> list = new ArrayList<>(); list.add(messageVO);
+		 * messages.put(messageVO.getRoomNum(), list); }else { //list 가 있을 경우
+		 * messages.get(messageVO.getRoomNum()).add(messageVO); }
+		 */
 		
 		chatDAO.addChat(messageVO);
 		

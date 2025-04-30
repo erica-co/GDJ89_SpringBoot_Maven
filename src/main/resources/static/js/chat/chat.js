@@ -1,5 +1,22 @@
 
 const websocket = new WebSocket("/ws/chat")
+
+//------memo
+try{
+    const memoSend = document.getElementsByName("memoSend")
+    const memoContents = document.getElementById("memocontents")
+    const memoReceiver = document.getElementById("memoReceiver")
+        
+    memoSend.addEventListener('click, ()=>)
+        )
+
+}catch(e){
+
+}
+
+
+//------chat
+try{
 const send = document.getElementById("send")
 const message = document.getElementById("message")
 const receivername = document.getElementsByClassName("receiver-name");
@@ -92,7 +109,10 @@ websocket.onerror=webSocketError;
 function webSocketError(){
 
 }
+}catch(e){
+m.data.newdaate;
 
+}
 
 //------------------------------------
 class Message {
@@ -112,4 +132,45 @@ function makeData(data){
 
     return div;
 
+}
+
+//memo(쪽지) 출력 구조 생성
+function.makeMemo(data){
+    let a = document.createElement("a")
+    a.classList.add("dropdown-item", "d-flex", "align-items-center")
+    a.href="#"
+
+    let div = document.createElement("div")
+    div.classList.add("dropdown-list-image", "mr-3")
+
+    let img = document.createElement(img);
+    img.classList.add("rounded-circle")
+    img.src="";
+
+    let div2 = document.createElement("div")
+    div2.classList.add("status-indicator", "bg-success")
+
+    div.appendChild(img)
+    div.appendChild(div2)
+
+    a.appendChild(div)
+
+    div = document.createElement(div);
+    div.classList.add("font-weight-bold")
+
+    div2 = document.createElement(div)
+    div.classList.add("text-truncate")
+    div2.innerText= data.body;
+
+    div.appendChild(div2)
+
+    div2= document.createElement(div)
+    div2.classList.add("small", "text-gray-500")
+    div2.innerText= data.sender+" "+data.date
+    
+    div.appendChild(div2);
+
+    a.appendChild(div)
+
+    document.getElementById("memo")
 }
