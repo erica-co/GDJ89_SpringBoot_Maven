@@ -32,7 +32,7 @@
 			                                <%-- <h3><spring:message code="${code}" text=""></spring:message></h3> forward방식--%>
 			                                
 			                            </div>
-			                            <form class="user" method="post" enctype="multipart/form-data">
+			                            <form class="user" action="/users/login" method="post" enctype="multipart/form-data">
 			                            	<input type="hidden" value="${_csrf.token}" name="${_csrf.parameterName}">
 			                                <div class="form-group">
 			                                    <input type="text" class="form-control form-control-user" id="username"
