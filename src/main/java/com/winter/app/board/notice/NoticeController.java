@@ -1,6 +1,8 @@
 package com.winter.app.board.notice;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.board.BoardFileVO;
@@ -21,7 +24,7 @@ import com.winter.app.user.UserVO;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
-@Controller
+@RestController //json
 @RequestMapping("/notice/*")
 public class NoticeController {
 	
@@ -37,13 +40,19 @@ public class NoticeController {
 	}
 	
 	@GetMapping("list")
-	public String getList(Pager pager, Model model)throws Exception{
+	public Map<String, Object> getList(Pager pager, Model model)throws Exception{
 		
 		List<BoardVO> ar = noticeService.getList(pager);
 		model.addAttribute("list", ar);
 		model.addAttribute("pager", pager);
 		
-		return "board/list";
+		//10개를 출력하고 그 다음 10개를 출력
+		//list와 pager를 담는 map으로 출력하기
+		Map<String, Object> map = new HashMap<>();
+		map.put("list", ar);
+		map.put("pager", pager);
+		return map;
+
 	}
 	
 	@GetMapping("detail")

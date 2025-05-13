@@ -1,5 +1,7 @@
 package com.winter.app.security;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,9 +9,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.winter.app.user.UserService;
 import com.winter.app.user.UserSocialService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Configuration
 @EnableWebSecurity//(debug=true)
@@ -50,7 +57,7 @@ public class SecurityConfig {
 		httpSecurity
 					/* cors 허용, filter에서 사용 가능*/
 					/*다른 서버에서 오는 요청 허용: cors*/
-					.cors(cors-> cors.disable()) 
+					.cors(cors-> cors.configurationSource(this.configurationSource())) 
 					.csrf(csfr-> csfr.disable())
 					
 					/*권한 적용 순서주의*/
@@ -117,8 +124,9 @@ public class SecurityConfig {
 		  .oauth2Login(oauth2Login->{ 
 			  oauth2Login 
 			  .userInfoEndpoint(user->{
-		      user.userService(userSocialService); })
-			  ; 
+		      user.userService(userSocialService); 
+		      });
+			   
 			  })
 		 
 					
@@ -136,7 +144,17 @@ public class SecurityConfig {
 		return httpSecurity.build();
 	}
 	
-	
+	CorsConfigurationSource configurationSource() {
+		CorsConfiguration corsconfiguration = new CorsConfiguration();
+			
+		corsconfiguration.setAllowedOrigins(List.of("*"));
+		
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", corsconfiguration);
+		return source;
+		
+		};
+	}
 	
 	
 	
@@ -148,4 +166,4 @@ public class SecurityConfig {
 	
 	
 
-}
+
