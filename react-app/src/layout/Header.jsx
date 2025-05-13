@@ -5,7 +5,7 @@ export default function Header() {
     return (
 
         <>
-            <h2>Header</h2>
+            <h3>Header</h3>
             <div>
                 <Link to="/notice/list">Notice</Link><br/>
                 <Link to="/qna/list">Qna</Link><br/>

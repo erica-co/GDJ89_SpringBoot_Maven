@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import { BrowserRouter } from 'react-router-dom'
 import Header from './layout/header'
 import AppRoutes from './layout/AppRoutes'
+import Footer from './layout/Footer'
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
       <AppRoutes></AppRoutes>
       
       
-     
+      <Footer></Footer>
       </BrowserRouter>
     </>
   )
