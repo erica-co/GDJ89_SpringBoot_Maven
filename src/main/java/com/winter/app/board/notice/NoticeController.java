@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +28,7 @@ import com.winter.app.user.UserVO;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController //json
-@RequestMapping("/notice/*")
+//@RequestMapping("/notice/*")
 public class NoticeController {
 	
 	@Autowired
@@ -39,7 +42,8 @@ public class NoticeController {
 		return this.name;
 	}
 	
-	@GetMapping("list")
+	//@GetMapping("list")
+	@GetMapping("/notices")
 	public Map<String, Object> getList(Pager pager, Model model)throws Exception{
 		
 		pager.setKind("k1");
@@ -56,33 +60,61 @@ public class NoticeController {
 
 	}
 	
-	@GetMapping("detail")
-	public String getDetail(BoardVO boardVO, Model model)throws Exception{
+	//@GetMapping("detail")
+	@GetMapping("/notices/{page}")
+	public BoardVO getDetail(@PathVariable(name = "page") Long page)throws Exception{
+		//log.info("{}", boardVO);
+		// 처음에는 restful 형식으로 설계를 안해서
+		//찍어보면 다 null 나옴 -> boardVO 사용 불가 
+		
+		BoardVO boardVO = new BoardVO();
+		boardVO.setBoardNum(page);
 		boardVO = noticeService.getDetail(boardVO);
 		
 		if(boardVO == null) {
 			
 		}
 		
-		model.addAttribute("vo", boardVO);
+		return boardVO;
+		//json 형식으로 웹에 출력됨 
+	}
+	
+	
+	@PostMapping("/notices")
+	public int add(NoticeVO noticeVO,@RequestParam(name="attaches") MultipartFile[] attaches)throws Exception{
 		
-		return "board/detail";
-	}
-	
-	@GetMapping("add")
-	public String add()throws Exception{
-		return "board/add";
-	}
-	
-	@PostMapping("add")
-	public String add(NoticeVO noticeVO,@RequestParam(name = "attaches") MultipartFile[] attaches, @AuthenticationPrincipal UserVO userVO)throws Exception{
-		noticeVO.setUserName(name); //보안 강화
+		log.info("{}", noticeVO);
+		for(MultipartFile m : attaches) {
+			log.info("{}", m.getOriginalFilename());
+		}
+		
+		//noticeVO.setUserName(name); //보안 강화
 		
 		int result = noticeService.add(noticeVO, attaches);
-		
+
+		return result;
+	}
 	
+	@DeleteMapping("/notices/{boardNum}")
+	public int delete(@PathVariable (name="boardNum") Long boardNum) throws Exception{
+		log.info("DeleteNum : {} ", boardNum);
 		
-		return "redirect:./list";
+		return 1;
+	}
+	
+	@PatchMapping("/notices")
+	public int update (NoticeVO noticeVO,@RequestParam(name="attaches") MultipartFile[] attaches)throws Exception{
+		
+		for(MultipartFile m : attaches) {
+			log.info("{}", m.getOriginalFilename());
+		}
+		
+		
+		//noticeVO.setUserName(name); //보안 강화
+		
+		//int result = noticeService.add(noticeVO, attaches);
+
+		return 0; //result
 	}
 	
 	@GetMapping("fileDown")

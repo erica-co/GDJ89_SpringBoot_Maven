@@ -63,9 +63,9 @@ public class SecurityConfig {
 					/*권한 적용 순서주의*/
 					.authorizeHttpRequests(authorizeRequest->{
 						authorizeRequest
-						.requestMatchers("/notice/add", "/notice/update", "/notice/delete").hasRole("ADMIN")
-						.requestMatchers("/user/mypage","/user/update","/user/logout").authenticated()
-						.requestMatchers("/manager/**").hasAnyRole("ADMIN","MEMBER")
+						//.requestMatchers("/notice/add", "/notice/update", "/notice/delete").hasRole("ADMIN")
+						//.requestMatchers("/user/mypage","/user/update","/user/logout").authenticated()
+						//.requestMatchers("/manager/**").hasAnyRole("ADMIN","MEMBER")
 						.anyRequest().permitAll()
 						;
 						
@@ -130,24 +130,18 @@ public class SecurityConfig {
 			  })
 		 
 					
-					
-					
-					
-					
-					
-					
-					;
-					
-					
-					
+					;		
 					
 		return httpSecurity.build();
 	}
 	
 	CorsConfigurationSource configurationSource() {
 		CorsConfiguration corsconfiguration = new CorsConfiguration();
-			
+		
+		//GET 메서드 허용 (그 외 메서드는 허용 안함)
 		corsconfiguration.setAllowedOrigins(List.of("*"));
+		//그 외 메서드들도 허용할 수 있게 추가 
+		corsconfiguration.setAllowedMethods(List.of("POST","DELETE","PATCH","PUT", "GET"));
 		
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", corsconfiguration);

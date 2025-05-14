@@ -26,7 +26,7 @@ function Notice(){
         params.append('search',search.current.value)
 
 
-        fetch(`http://localhost:81/notice/list?${params}`)
+        fetch(`http://localhost:81/notices?${params}`)
         .then(r=>r.json())
         .then(r=>{
             console.log("서버응답:", r)
@@ -88,8 +88,9 @@ function Notice(){
             {
                 makeNum()
             }
-                
-            
+            <br/>
+            <br/>
+            <Link to="/notice/add">글쓰기</Link>
             
 
         </>
