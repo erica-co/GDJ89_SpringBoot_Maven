@@ -33,9 +33,9 @@
   		<result column="BIRTH" property="birth"/>
   		<result column="FILE_NAME" property="fileName"/>
   		<result column="ORI_NAME" property="oriName"/>
-  		<result column="ACCOUNTNONEXPIRED" property="accountNonExpired"/>
-  		<result column="ACCOUNTNONLOCKED" property="accountNonLocked"/>
-  		<result column="CREDENTIALSNONEXPIRED" property="credentialsNonExpired"/>
+  		<result column="ACCOUNT_NON_EXPIRED" property="accountNonExpired"/>
+  		<result column="ACCOUNT_NON_LOCKED" property="accountNonLocked"/>
+  		<result column="CREDENTIALS_NON_EXPIRED" property="credentialsNonExpired"/>
   		<result column="ENABLED" property="enabled"/>
   		<collection property="list" javaType="java.util.List" ofType="RoleVO">
   			<result column="ROLE_NAME" property="roleName"/>

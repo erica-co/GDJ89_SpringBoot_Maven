@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom"
+import * as usermanager from "../../commons/UserManager" 
 
 export default function Detail() {
     // 파라미터 : URL/파라미터값/파라미터값 -> useParam 레스트풀형식으로 가져오기 
@@ -46,7 +47,9 @@ export default function Detail() {
     const navigate = useNavigate();
 
     useEffect(()=>{
-        fetch(`http://localhost:81/notices/${p.state.boardNum}`)
+        fetch(`http://localhost:81/notices/${p.state.boardNum}`,{
+            headers: usermanager.setHeaders
+        })
         .then(r=>r.json())
         .then(r=>{
             //console.log("서버응답:", r)
@@ -59,7 +62,8 @@ export default function Detail() {
     function remove() {
 
         fetch(`http://localhost:81/notices/${p.state.boardNum}`,{
-            method:"DELETE"
+            method:"DELETE" ,
+            headers: usermanager.setHeaders()
         })
         .then(r=>r.json())
         .then(r=>{

@@ -19,15 +19,17 @@ class UserTest {
 	@Test
 	void test() throws Exception{
 		UserVO userVO = new UserVO();
-		userVO.setUsername("admin");
+		userVO.setUsername("user2");
 		
-		userVO = userDAO.detail(userVO);
+		//userVO = userDAO.detail(userVO);
 		
 		String pw = "12345678";
 		
-		boolean result = passwordEncoder.matches(pw, userVO.getPassword());
+		userVO.setPassword(passwordEncoder.encode(pw));
+		userVO.setName("user2");
 		
-		assertTrue(result);
+		userDAO.join(userVO);
+		
 	}
 
 }

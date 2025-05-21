@@ -40,6 +40,7 @@ public class UserService implements UserDetailsService{
 		UserVO userVO = new UserVO();
 		//2. System.out.println("name : "+username);
 		userVO.setUsername(username);
+		log.info("Login : {}", username);
 		try {
 			userVO = userDAO.detail(userVO);
 			//1. System.out.println(userVO);

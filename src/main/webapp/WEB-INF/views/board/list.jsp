@@ -102,6 +102,7 @@
 			</div>
 			<!-- End Content -->
 			<c:import url="/WEB-INF/views/templates/foot.jsp"></c:import>
+			
 		</div>
 		<!-- End Content-wrapper -->
 	</div>

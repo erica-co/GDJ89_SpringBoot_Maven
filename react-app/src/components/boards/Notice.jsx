@@ -81,6 +81,7 @@ function Notice(){
                 list.list.map(l=>
                     <li key={l.boardNum}><Link to="/notice/detail" state={{boardNum:l.boardNum}}>{l.boardTitle}</Link></li>
                     //state : key , value 형식 여러개 보낼 수 있음 
+                    //중복되지 않는 값: num으로 키 설정 
                 )
 
             }
